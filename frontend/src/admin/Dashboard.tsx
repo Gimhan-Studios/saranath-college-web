@@ -21,42 +21,42 @@ export default function Dashboard() {
   const max = Math.max(1, ...(data?.houses ?? []).map((h) => h.points))
   return (
     <div>
-      <h1 className="font-serif text-4xl font-semibold text-navy-900">{greet}, {me?.full_name?.split(' ')[0] || me?.username}</h1>
+      <h1 className="font-serif text-3xl font-semibold text-navy-900 sm:text-4xl">{greet}, {me?.full_name?.split(' ')[0] || me?.username}</h1>
       <p className="mt-1 text-sm text-muted">Here is what is happening on the website.</p>
 
       {!!data?.feedback_new && (
-        <Link to="/admin/feedback" className="mt-6 flex items-center gap-4 rounded-2xl bg-gold-300/30 p-5 ring-1 ring-gold-500/40 transition hover:bg-gold-300/50">
-          <Inbox className="h-6 w-6 text-gold-600" /><div><b className="text-navy-900">{data.feedback_new} new message{data.feedback_new > 1 ? 's' : ''}</b><div className="text-sm text-muted">Private comments and feedback from the public.</div></div>
+        <Link to="/admin/feedback" className="mt-6 flex items-center gap-4 rounded-2xl bg-gold-300/30 p-4 ring-1 ring-gold-500/40 transition hover:bg-gold-300/50 sm:p-5">
+          <Inbox className="h-6 w-6 shrink-0 text-gold-600" /><div><b className="tabular-nums text-navy-900">{data.feedback_new} new message{data.feedback_new > 1 ? 's' : ''}</b><div className="text-sm text-muted">Private comments and feedback from the public.</div></div>
         </Link>
       )}
 
-      <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {tiles.map((t) => (
-          <Link key={t.to} to={`/admin/${t.to}`} className="card p-5 transition hover:-translate-y-0.5">
+          <Link key={t.to} to={`/admin/${t.to}`} className="card p-4 transition hover:-translate-y-0.5 sm:p-5">
             <t.icon className="h-5 w-5 text-gold-600" />
-            <div className="mt-4 font-serif text-4xl font-bold text-navy-900">{t.value ?? '–'}</div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-muted">{t.label}</div>
+            <div className="mt-3 font-serif text-3xl font-bold tabular-nums text-navy-900 sm:mt-4 sm:text-4xl">{t.value ?? '–'}</div>
+            <div className="text-[0.7rem] font-semibold uppercase tracking-wider text-muted sm:text-xs">{t.label}</div>
           </Link>
         ))}
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-        <div className="card p-6">
-          <div className="flex items-center justify-between"><h2 className="flex items-center gap-2 font-semibold text-navy-900"><Trophy className="h-5 w-5 text-gold-600" />House standings</h2><Link to="/admin/points" className="text-sm font-semibold text-navy-700">Update points →</Link></div>
+        <div className="card p-5 sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="flex items-center gap-2 font-semibold text-navy-900"><Trophy className="h-5 w-5 text-gold-600" />House standings</h2><Link to="/admin/points" className="inline-flex min-h-[36px] items-center text-sm font-semibold text-navy-700">Update points →</Link></div>
           <div className="mt-6 space-y-4">
             {(data?.houses ?? []).map((h) => (
               <div key={h.id}>
-                <div className="flex justify-between text-sm"><span className="font-semibold text-navy-900">{h.name}</span><span className="font-serif text-lg font-bold">{h.points}</span></div>
+                <div className="flex justify-between text-sm"><span className="font-semibold text-navy-900">{h.name}</span><span className="font-serif text-lg font-bold tabular-nums">{h.points}</span></div>
                 <div className="mt-1 h-2.5 rounded-full bg-paper"><div className="h-full rounded-full transition-all duration-700" style={{ width: `${(h.points / max) * 100}%`, background: h.color_hex }} /></div>
               </div>
             ))}
           </div>
         </div>
-        <div className="card p-6">
+        <div className="card p-5 sm:p-6">
           <h2 className="font-semibold text-navy-900">Quick actions</h2>
           <div className="mt-4 grid gap-2">
             {[['events', 'Add an event'], ['news', 'Post school news'], ['gallery', 'Add gallery photos'], ['points', 'Update sports meet points']].map(([to, l]) => (
-              <Link key={to} to={`/admin/${to}`} className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-navy-900 ring-1 ring-line transition hover:bg-paper"><Plus className="h-4 w-4 text-gold-600" />{l}</Link>
+              <Link key={to} to={`/admin/${to}`} className="flex min-h-[44px] items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-navy-900 ring-1 ring-line transition hover:bg-paper"><Plus className="h-4 w-4 text-gold-600" />{l}</Link>
             ))}
           </div>
           {!!data?.recent_activity.length && (

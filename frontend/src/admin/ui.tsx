@@ -102,9 +102,9 @@ export function Drawer({ open, title, onClose, children, footer }: { open: boole
         <motion.div className="fixed inset-0 z-50 flex justify-end bg-navy-950/40 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
           <motion.aside role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.stopPropagation()} className="flex h-full w-full max-w-2xl flex-col bg-white shadow-2xl"
             initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', stiffness: 320, damping: 36 }}>
-            <header className="flex items-center justify-between border-b border-line px-6 py-4"><h2 className="font-serif text-2xl font-semibold text-navy-900">{title}</h2><button onClick={onClose} className="grid h-9 w-9 place-items-center rounded-full hover:bg-paper" aria-label="Close"><X className="h-5 w-5" /></button></header>
-            <div className="flex-1 overflow-y-auto px-6 py-6">{children}</div>
-            <footer className="flex justify-end gap-2 border-t border-line bg-paper px-6 py-4">{footer}</footer>
+            <header className="flex items-center justify-between border-b border-line px-5 py-3.5 sm:px-6 sm:py-4"><h2 className="font-serif text-2xl font-semibold text-navy-900">{title}</h2><button onClick={onClose} className="grid h-11 w-11 place-items-center rounded-full hover:bg-paper" aria-label="Close"><X className="h-5 w-5" /></button></header>
+            <div className="flex-1 overflow-y-auto px-5 py-5 sm:px-6 sm:py-6">{children}</div>
+            <footer className="flex justify-end gap-2 border-t border-line bg-paper px-5 py-3.5 pb-safe sm:px-6 sm:py-4">{footer}</footer>
           </motion.aside>
         </motion.div>
       )}
@@ -137,11 +137,11 @@ export function Toaster() {
 export function ConfirmDelete({ label, onConfirm }: { label: string; onConfirm: () => Promise<void> }) {
   const [ask, setAsk] = useState(false)
   const [busy, setBusy] = useState(false)
-  if (!ask) return <button onClick={() => setAsk(true)} className="grid h-9 w-9 place-items-center rounded-lg text-muted hover:bg-red-50 hover:text-red-600" aria-label={`Delete ${label}`}><Trash2 className="h-4 w-4" /></button>
+  if (!ask) return <button onClick={() => setAsk(true)} className="grid h-11 w-11 place-items-center rounded-lg text-muted hover:bg-red-50 hover:text-red-600" aria-label={`Delete ${label}`}><Trash2 className="h-4 w-4" /></button>
   return (
     <span className="inline-flex items-center gap-1">
-      <button disabled={busy} onClick={async () => { setBusy(true); try { await onConfirm() } finally { setBusy(false); setAsk(false) } }} className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white">{busy ? '…' : 'Delete'}</button>
-      <button onClick={() => setAsk(false)} className="rounded-lg px-2 py-1.5 text-xs text-muted hover:bg-paper">Cancel</button>
+      <button disabled={busy} onClick={async () => { setBusy(true); try { await onConfirm() } finally { setBusy(false); setAsk(false) } }} className="min-h-[40px] rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white">{busy ? '…' : 'Delete'}</button>
+      <button onClick={() => setAsk(false)} className="min-h-[40px] rounded-lg px-2.5 py-1.5 text-xs text-muted hover:bg-paper">Cancel</button>
     </span>
   )
 }

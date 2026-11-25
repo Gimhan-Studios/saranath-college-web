@@ -47,11 +47,11 @@ export function SchoolSettingsPage() {
         <p className="text-sm text-muted">Shown under the welcome statement. Numbers count up when they scroll into view.</p>
         <div className="mt-4 space-y-3">
           {stats.map((s, i) => (
-            <div key={i} className="grid grid-cols-[1fr_80px_2fr_auto] gap-2">
+            <div key={i} className="grid grid-cols-[1fr_76px_auto] gap-2 rounded-xl border border-line p-3 sm:grid-cols-[1fr_80px_2fr_auto] sm:border-0 sm:p-0">
               <input className="field" placeholder="124" value={s.value} onChange={(e) => setStat(i, 'value', e.target.value)} aria-label="Number" />
               <input className="field" placeholder="+" value={s.suffix} onChange={(e) => setStat(i, 'suffix', e.target.value)} aria-label="Suffix" />
-              <input className="field" placeholder="Label" value={s.label} onChange={(e) => setStat(i, 'label', e.target.value)} aria-label="Label" />
-              <button className="grid w-11 place-items-center rounded-xl text-muted hover:bg-red-50 hover:text-red-600" onClick={() => setValues({ ...values, stats: stats.filter((_, j) => j !== i) })} aria-label="Remove"><X className="h-4 w-4" /></button>
+              <input className="field col-span-2 sm:col-span-1" placeholder="Label" value={s.label} onChange={(e) => setStat(i, 'label', e.target.value)} aria-label="Label" />
+              <button className="col-start-3 row-start-1 grid h-11 w-11 place-items-center rounded-xl text-muted hover:bg-red-50 hover:text-red-600 sm:col-start-auto sm:row-start-auto" onClick={() => setValues({ ...values, stats: stats.filter((_, j) => j !== i) })} aria-label="Remove"><X className="h-4 w-4" /></button>
             </div>
           ))}
           {stats.length < 8 && <button className="btn-outline" onClick={() => setValues({ ...values, stats: [...stats, { value: '', suffix: '', label: '' }] })}><Plus className="h-4 w-4" />Add number</button>}

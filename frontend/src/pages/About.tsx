@@ -22,7 +22,7 @@ export default function About() {
     <>
       <PageHero eyebrow={`Since ${s?.founded ?? 1882}`} title="About Saranath" lead={s?.intro_statement} image={s?.hero_image} />
 
-      <section className="bg-paper py-24">
+      <section className="bg-paper py-16 sm:py-24">
         <div className="wrap">
           <SectionHeading center eyebrow="Our History" title="A Journey Through Time" />
           {timeline ? <Timeline items={timeline} /> : <div className="mx-auto grid max-w-3xl gap-4"><Skeletons n={5} className="h-24" /></div>}
@@ -30,31 +30,37 @@ export default function About() {
       </section>
 
       {p?.message && (
-        <section id="principal" className="scroll-mt-24 bg-white py-24">
-          <div className="wrap grid gap-14 lg:grid-cols-[320px_1fr]">
-            <Reveal className="lg:sticky lg:top-28 lg:self-start">
+        <section id="principal" className="scroll-mt-20 bg-white py-16 sm:py-24">
+          <div className="wrap grid gap-10 lg:grid-cols-[320px_1fr] lg:gap-14">
+            <Reveal className="mx-auto w-full max-w-[280px] sm:max-w-xs lg:sticky lg:top-28 lg:max-w-none lg:self-start">
               <div className="overflow-hidden rounded-3xl bg-navy-900">
-                {p.photo ? <Img src={p.photo} alt={p.name} className="aspect-[4/5] w-full object-cover" /> : <div className="grid aspect-[4/5] place-items-center"><img src={s?.logo} alt="" className="h-36" /></div>}
+                {p.photo ? <Img src={p.photo} alt={p.name} className="aspect-[4/5] w-full object-cover" /> : <div className="grid aspect-[4/5] place-items-center"><img src={s?.logo} alt="" className="h-32 sm:h-36" /></div>}
               </div>
-              <div className="mt-5 font-serif text-2xl font-semibold text-navy-900">{p.name}</div>
+              <div className="mt-4 font-serif text-2xl font-semibold text-navy-900 sm:mt-5">{p.name}</div>
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-600">{p.title}</div>
             </Reveal>
             <article>
-              <Reveal><div className="eyebrow">From the Principal</div><h2 className="mt-3 font-serif text-5xl font-semibold text-navy-900">Principal's Message</h2></Reveal>
-              {p.quote && <Reveal delay={0.1}><blockquote className="my-10 border-l-4 border-gold-500 pl-6 font-serif text-3xl italic leading-snug text-navy-800">“{p.quote}”</blockquote></Reveal>}
+              <Reveal><div className="eyebrow">From the Principal</div><h2 className="mt-2 font-serif text-3xl font-semibold text-navy-900 sm:mt-3 sm:text-5xl">Principal's Message</h2></Reveal>
+              {p.quote && (
+                <Reveal delay={0.1}>
+                  <blockquote className="my-7 border-y border-line py-5 font-serif text-2xl italic leading-snug text-navy-800 sm:my-10 sm:py-6 sm:text-3xl">
+                    “{p.quote}”
+                  </blockquote>
+                </Reveal>
+              )}
               <Reveal delay={0.15} className="prose-school">{paragraphs(p.message).map((t, i) => <p key={i}>{t}</p>)}</Reveal>
-              <Reveal delay={0.2}><div className="mt-8 font-serif text-3xl italic text-navy-900">{p.name}</div><div className="text-xs uppercase tracking-[0.2em] text-muted">{p.title}</div></Reveal>
+              <Reveal delay={0.2}><div className="mt-8 font-serif text-2xl italic text-navy-900 sm:text-3xl">{p.name}</div><div className="text-xs uppercase tracking-[0.2em] text-muted">{p.title}</div></Reveal>
             </article>
           </div>
         </section>
       )}
 
-      <section className="bg-navy-900 py-24 text-center text-white">
+      <section className="bg-navy-900 py-16 text-center text-white sm:py-24">
         <div className="wrap">
-          <Reveal><img src={s?.logo} alt="Saranath College crest" className="mx-auto h-28" /></Reveal>
-          <Reveal delay={0.1}><div className="eyebrow mt-8 text-gold-400">Our Motto</div></Reveal>
-          <Reveal delay={0.15}><div className="mt-4 font-sinhala text-5xl font-bold text-gold-300 sm:text-6xl">{s?.motto_si}</div></Reveal>
-          <Reveal delay={0.2}><div className="mt-4 font-serif text-2xl italic text-white/80">“{s?.motto_en}”</div></Reveal>
+          <Reveal><img src={s?.logo} alt="Saranath College crest" className="mx-auto h-20 sm:h-28" /></Reveal>
+          <Reveal delay={0.08}><div className="eyebrow mt-6 text-gold-400 sm:mt-8">Our Motto</div></Reveal>
+          <Reveal delay={0.12}><div className="mt-3 font-sinhala text-3xl font-bold text-gold-300 sm:mt-4 sm:text-5xl lg:text-6xl">{s?.motto_si}</div></Reveal>
+          <Reveal delay={0.16}><div className="mt-3 font-serif text-xl italic text-white/80 sm:mt-4 sm:text-2xl">“{s?.motto_en}”</div></Reveal>
         </div>
       </section>
     </>

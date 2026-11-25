@@ -13,35 +13,35 @@ export default function HouseStandings({ houses, compact = false }: { houses: Ho
         <motion.article
           key={h.id}
           layout
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="group relative overflow-hidden rounded-2xl bg-white p-6 shadow-[0_20px_40px_-24px_rgba(6,23,61,.35)] ring-1 ring-line"
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="group relative overflow-hidden rounded-2xl bg-white p-5 ring-1 ring-line shadow-[0_20px_40px_-24px_rgba(6,23,61,.35)] sm:p-6"
         >
           <div className="absolute inset-x-0 top-0 h-1.5" style={{ background: h.color_hex }} />
           <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-10 transition-transform duration-700 group-hover:scale-150" style={{ background: h.color_hex }} />
-          <div className="relative flex items-start justify-between">
+          <div className="relative flex items-start justify-between gap-3">
             <div>
-              <div className="text-[0.65rem] font-bold uppercase tracking-[0.25em]" style={{ color: h.color_hex }}>{h.colour_name}</div>
-              <h3 className="mt-1 font-serif text-3xl font-bold text-navy-900">{h.name}</h3>
+              <div className="text-[0.65rem] font-bold uppercase tracking-[0.22em]" style={{ color: h.color_hex }}>{h.colour_name}</div>
+              <h3 className="mt-1 font-serif text-2xl font-bold text-navy-900 sm:text-3xl">{h.name}</h3>
               {h.name_si && <div className="font-sinhala text-sm text-muted">{h.name_si}</div>}
             </div>
             {anyPoints && (
-              <div className={`grid h-10 w-10 place-items-center rounded-full text-sm font-bold ${i === 0 ? 'bg-gold-500 text-navy-900' : 'bg-paper text-navy-900'}`}>
+              <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-sm font-bold tabular-nums ${i === 0 ? 'bg-gold-500 text-navy-900' : 'bg-paper text-navy-900'}`}>
                 {i === 0 ? <Crown className="h-5 w-5" /> : i + 1}
               </div>
             )}
           </div>
-          <div className="relative mt-6">
+          <div className="relative mt-5 sm:mt-6">
             <div className="flex items-end justify-between">
               <span className="text-xs font-semibold uppercase tracking-widest text-muted">Points</span>
-              <span className="font-serif text-4xl font-bold text-navy-900">{h.points.toLocaleString()}</span>
+              <span className="font-serif text-3xl font-bold text-navy-900 tabular-nums sm:text-4xl">{h.points.toLocaleString()}</span>
             </div>
             <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-paper">
               <motion.div
                 className="h-full rounded-full"
                 style={{ background: h.color_hex }}
                 initial={{ width: 0 }} whileInView={{ width: `${(h.points / max) * 100}%` }} viewport={{ once: true }}
-                transition={{ duration: 1.4, delay: 0.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.2, delay: 0.25 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
               />
             </div>
           </div>
@@ -55,7 +55,7 @@ export default function HouseStandings({ houses, compact = false }: { houses: Ho
         </motion.article>
       ))}
       {!anyPoints && (
-        <div className="col-span-full flex items-center justify-center gap-2 text-sm text-muted"><Trophy className="h-4 w-4 text-gold-600" />Points will appear here once the sports meet begins.</div>
+        <div className="col-span-full flex items-center justify-center gap-2 pt-2 text-center text-sm text-white/75"><Trophy className="h-4 w-4 shrink-0 text-gold-400" />Points will appear here once the sports meet begins.</div>
       )}
     </div>
   )

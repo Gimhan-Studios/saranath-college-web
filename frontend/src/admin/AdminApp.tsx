@@ -88,18 +88,18 @@ function Shell() {
         )}
       </AnimatePresence>
       <div className="min-w-0">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-line bg-white/85 px-4 backdrop-blur sm:px-8">
-          <button className="grid h-10 w-10 place-items-center rounded-lg hover:bg-paper lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-5 w-5" /></button>
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-white/90 px-4 backdrop-blur sm:h-16 sm:px-8">
+          <button className="grid h-11 w-11 place-items-center rounded-lg hover:bg-paper lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu className="h-5 w-5" /></button>
           <div className="hidden items-center gap-2 text-xs text-muted lg:flex"><Shield className="h-4 w-4 text-emerald-600" />Secure session · signs out after 30 minutes idle</div>
-          <div className="flex items-center gap-2">
-            <Link to="/admin/account" className="flex items-center gap-2 rounded-full py-1 pl-1 pr-3 hover:bg-paper">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Link to="/admin/account" className="flex min-h-[44px] items-center gap-2 rounded-full py-1 pl-1.5 pr-3 hover:bg-paper">
               <span className="grid h-8 w-8 place-items-center rounded-full bg-navy-900 text-xs font-bold text-gold-400">{(me?.full_name || me?.username || '?').slice(0, 1).toUpperCase()}</span>
               <span className="hidden text-sm font-medium text-navy-900 sm:block">{me?.full_name || me?.username}</span>
             </Link>
-            <button onClick={logout} className="grid h-10 w-10 place-items-center rounded-lg text-muted hover:bg-red-50 hover:text-red-600" aria-label="Sign out" title="Sign out"><LogOut className="h-4 w-4" /></button>
+            <button onClick={logout} className="grid h-11 w-11 place-items-center rounded-lg text-muted hover:bg-red-50 hover:text-red-600" aria-label="Sign out" title="Sign out"><LogOut className="h-4 w-4" /></button>
           </div>
         </header>
-        <main className="mx-auto max-w-6xl px-4 py-8 sm:px-8">
+        <main className="mx-auto max-w-6xl px-4 py-6 sm:px-8 sm:py-8">
           <AnimatePresence mode="wait">
             <motion.div key={pathname} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
               <Routes>

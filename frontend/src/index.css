@@ -42,27 +42,33 @@
 
 @layer base {
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-  body { @apply bg-paper text-ink font-sans antialiased; text-rendering: optimizeLegibility; }
+  body { @apply bg-paper text-ink font-sans antialiased; text-rendering: optimizeLegibility; -webkit-tap-highlight-color: transparent; }
   ::selection { background: var(--color-gold-400); color: var(--color-navy-900); }
   :focus-visible { outline: 2px solid var(--color-gold-500); outline-offset: 3px; border-radius: 4px; }
   img { max-width: 100%; }
+  h1, h2, h3 { text-wrap: balance; }
 }
 
 @utility wrap { width: min(1200px, 100% - 2rem); margin-inline: auto; @media (min-width: 640px) { width: min(1200px, 100% - 3rem); } }
-@utility eyebrow { @apply text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-gold-600; }
-@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-300 active:scale-[.97] disabled:opacity-50 disabled:pointer-events-none; }
+@utility eyebrow { @apply text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-gold-600 sm:tracking-[0.28em]; }
+@utility btn { @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap transition duration-200 active:scale-[.97] disabled:opacity-50 disabled:pointer-events-none; }
 @utility btn-gold { @apply btn bg-gold-500 text-navy-900 hover:bg-gold-400 shadow-[0_8px_24px_-8px_rgba(217,168,69,.6)]; }
 @utility btn-navy { @apply btn bg-navy-900 text-white hover:bg-navy-800; }
 @utility btn-ghost { @apply btn border border-white/30 text-white hover:bg-white/10 backdrop-blur; }
 @utility btn-outline { @apply btn border border-navy-900/15 text-navy-900 hover:border-navy-900/40 hover:bg-white; }
-@utility card { @apply rounded-2xl bg-white border border-line shadow-[0_1px_2px_rgba(6,23,61,.04),0_12px_32px_-16px_rgba(6,23,61,.18)]; }
-@utility chip { @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold; }
+@utility card { @apply rounded-2xl bg-white border border-line shadow-[0_1px_2px_rgba(6,23,61,.04),0_12px_32px_-16px_rgba(6,23,61,.14)]; }
+@utility chip { @apply inline-flex min-h-[36px] items-center rounded-full px-3.5 py-1.5 text-xs font-semibold whitespace-nowrap; }
 @utility skeleton { background: linear-gradient(90deg,#eef1f6 0,#f8f9fc 40%,#eef1f6 80%); background-size: 800px 100%; @apply animate-shimmer rounded-xl; }
-@utility field { @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-[0.95rem] outline-none transition focus:border-navy-600 focus:ring-4 focus:ring-navy-600/10; }
+@utility field { @apply w-full min-h-[44px] rounded-xl border border-line bg-white px-4 py-2.5 text-base outline-none transition focus:border-navy-600 focus:ring-4 focus:ring-navy-600/10 sm:text-[0.95rem]; }
 @utility label { @apply mb-1.5 block text-sm font-medium text-navy-900; }
+@utility no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+@utility pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
 
 @layer components {
-  .prose-school p { margin-bottom: 1.25rem; line-height: 2rem; font-size: 1.02rem; color: color-mix(in oklab, var(--color-ink) 85%, transparent); }
+  .prose-school p { margin-bottom: 1.25rem; line-height: 1.85; font-size: 1rem; color: color-mix(in oklab, var(--color-ink) 85%, transparent); }
+  @media (min-width: 640px) {
+    .prose-school p { line-height: 2rem; font-size: 1.04rem; }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

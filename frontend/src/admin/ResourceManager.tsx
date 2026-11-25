@@ -47,10 +47,33 @@ export default function ResourceManager({ cfg }: { cfg: ResourceConfig }) {
 
   return (
     <div>
-      <PageTitle title={cfg.title} sub={cfg.sub} action={<button className="btn-navy" onClick={() => open(null)}><Plus className="h-4 w-4" />Add {cfg.singular.toLowerCase()}</button>} />
+      <PageTitle title={cfg.title} sub={cfg.sub} action={<button className="btn-navy w-full sm:w-auto" onClick={() => open(null)}><Plus className="h-4 w-4" />Add {cfg.singular.toLowerCase()}</button>} />
       <div className="card overflow-hidden">
-        <div className="border-b border-line p-4"><label className="relative block max-w-sm"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" /><input className="field py-2.5 pl-10" placeholder="Search" value={q} onChange={(e) => setQ(e.target.value)} /></label></div>
-        <div className="overflow-x-auto">
+        <div className="border-b border-line p-4"><label className="relative block max-w-sm"><Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" /><input className="field py-2.5 pl-10" placeholder="Search" value={q} onChange={(e) => setQ(e.target.value)} /></label></div>
+
+        {/* Mobile card list */}
+        <div className="divide-y divide-line md:hidden">
+          {isLoading && <p className="px-4 py-10 text-center text-sm text-muted">Loading…</p>}
+          {!isLoading && rows.length === 0 && <p className="px-4 py-10 text-center text-sm text-muted">Nothing here yet.</p>}
+          {rows.map((r) => (
+            <div key={r.id} className="flex items-start justify-between gap-3 p-4">
+              <div className="min-w-0 flex-1 space-y-2">
+                <div className="flex flex-wrap items-center gap-3">
+                  {cfg.columns.map((c, idx) => (
+                    <div key={idx} className="min-w-0 text-sm">{c.render(r)}</div>
+                  ))}
+                </div>
+              </div>
+              <div className="flex shrink-0 items-center gap-1">
+                <button onClick={() => open(r)} className="grid h-11 w-11 place-items-center rounded-lg text-muted hover:bg-paper hover:text-navy-900" aria-label="Edit"><Pencil className="h-4 w-4" /></button>
+                <ConfirmDelete label={cfg.singular} onConfirm={async () => { try { await api(`/api/admin/${cfg.key}/${r.id}`, { method: 'DELETE' }); toast('Deleted'); invalidate() } catch (e) { toast(e instanceof ApiError ? e.message : 'Delete failed', 'err') } }} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop table */}
+        <div className="hidden overflow-x-auto md:block">
           <table className="w-full text-left text-sm">
             <thead className="bg-paper text-xs uppercase tracking-wider text-muted"><tr>{cfg.columns.map((c) => <th key={c.label} className={`px-4 py-3 font-semibold ${c.className ?? ''}`}>{c.label}</th>)}<th className="w-28 px-4 py-3" /></tr></thead>
             <tbody className="divide-y divide-line">
@@ -60,7 +83,7 @@ export default function ResourceManager({ cfg }: { cfg: ResourceConfig }) {
                 <tr key={r.id} className="transition hover:bg-paper/60">
                   {cfg.columns.map((c) => <td key={c.label} className={`px-4 py-3 align-middle ${c.className ?? ''}`}>{c.render(r)}</td>)}
                   <td className="px-4 py-3 text-right"><span className="inline-flex items-center gap-1">
-                    <button onClick={() => open(r)} className="grid h-9 w-9 place-items-center rounded-lg text-muted hover:bg-paper hover:text-navy-900" aria-label="Edit"><Pencil className="h-4 w-4" /></button>
+                    <button onClick={() => open(r)} className="grid h-10 w-10 place-items-center rounded-lg text-muted hover:bg-paper hover:text-navy-900" aria-label="Edit"><Pencil className="h-4 w-4" /></button>
                     <ConfirmDelete label={cfg.singular} onConfirm={async () => { try { await api(`/api/admin/${cfg.key}/${r.id}`, { method: 'DELETE' }); toast('Deleted'); invalidate() } catch (e) { toast(e instanceof ApiError ? e.message : 'Delete failed', 'err') } }} />
                   </span></td>
                 </tr>

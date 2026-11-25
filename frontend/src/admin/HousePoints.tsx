@@ -31,15 +31,15 @@ export default function HousePoints() {
           return (
             <div key={h.id} className="card overflow-hidden">
               <div className="h-2" style={{ background: h.color_hex }} />
-              <div className="p-6">
-                <div className="flex items-center justify-between"><h2 className="font-serif text-3xl font-semibold text-navy-900">{h.name}</h2><span className="text-xs text-muted">Saved: {h.points}</span></div>
+              <div className="p-5 sm:p-6">
+                <div className="flex items-center justify-between"><h2 className="font-serif text-2xl font-semibold text-navy-900 sm:text-3xl">{h.name}</h2><span className="text-xs tabular-nums text-muted">Saved: {h.points}</span></div>
                 <div className="mt-5 flex items-center gap-3">
-                  <button onClick={() => bump(h.id, -1)} className="grid h-12 w-12 place-items-center rounded-xl ring-1 ring-line hover:bg-paper" aria-label="Minus 1"><Minus className="h-5 w-5" /></button>
-                  <input type="number" min={0} value={pts[h.id] ?? 0} onChange={(e) => setPts((p) => ({ ...p, [h.id]: Math.max(0, parseInt(e.target.value || '0', 10)) }))} className="field text-center font-serif text-3xl font-bold" aria-label={`${h.name} points`} />
-                  <button onClick={() => bump(h.id, 1)} className="grid h-12 w-12 place-items-center rounded-xl ring-1 ring-line hover:bg-paper" aria-label="Plus 1"><Plus className="h-5 w-5" /></button>
+                  <button onClick={() => bump(h.id, -1)} className="grid h-12 w-12 shrink-0 place-items-center rounded-xl ring-1 ring-line transition hover:bg-paper" aria-label="Minus 1"><Minus className="h-5 w-5" /></button>
+                  <input type="number" min={0} value={pts[h.id] ?? 0} onChange={(e) => setPts((p) => ({ ...p, [h.id]: Math.max(0, parseInt(e.target.value || '0', 10)) }))} className="field text-center font-serif text-3xl font-bold tabular-nums" aria-label={`${h.name} points`} />
+                  <button onClick={() => bump(h.id, 1)} className="grid h-12 w-12 shrink-0 place-items-center rounded-xl ring-1 ring-line transition hover:bg-paper" aria-label="Plus 1"><Plus className="h-5 w-5" /></button>
                 </div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {[1, 3, 5, 10].map((n) => <button key={n} onClick={() => bump(h.id, n)} className="chip bg-paper px-3 py-1.5 text-navy-900 ring-1 ring-line hover:bg-gold-300/40">+{n}</button>)}
+                <div className="mt-3 grid grid-cols-4 gap-2">
+                  {[1, 3, 5, 10].map((n) => <button key={n} onClick={() => bump(h.id, n)} className="inline-flex min-h-[44px] items-center justify-center rounded-xl bg-paper px-3 py-2 text-xs font-semibold tabular-nums text-navy-900 ring-1 ring-line transition hover:bg-gold-300/40">+{n}</button>)}
                 </div>
                 <button onClick={() => save(h)} disabled={!changed || busy === h.id} className="btn-navy mt-5 w-full"><Save className="h-4 w-4" />{busy === h.id ? 'Saving…' : changed ? 'Save' : 'Saved'}</button>
               </div>

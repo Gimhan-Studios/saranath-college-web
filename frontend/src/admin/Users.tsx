@@ -40,8 +40,31 @@ export default function UsersPage() {
 
   return (
     <div>
-      <PageTitle title="Admin Users" sub="Give each staff member their own account. Never share passwords." action={<button className="btn-navy" onClick={() => { setValues({ role: 'editor', username: '', full_name: '', password: '' }); setMode('new') }}><Plus className="h-4 w-4" />Add user</button>} />
-      <div className="card overflow-x-auto">
+      <PageTitle title="Admin Users" sub="Give each staff member their own account. Never share passwords." action={<button className="btn-navy w-full sm:w-auto" onClick={() => { setValues({ role: 'editor', username: '', full_name: '', password: '' }); setMode('new') }}><Plus className="h-4 w-4" />Add user</button>} />
+
+      <div className="card divide-y divide-line md:hidden">
+        {data?.map((u) => (
+          <div key={u.id} className="space-y-3 p-4">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <div className="font-semibold text-navy-900">{u.full_name || u.username}</div>
+                <div className="text-xs text-muted">@{u.username} · {u.role === 'superadmin' ? 'Super admin' : 'Editor'}</div>
+              </div>
+              {u.is_active ? <span className="chip bg-emerald-50 text-emerald-700">Active</span> : <span className="chip bg-red-50 text-red-700">Disabled</span>}
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted">
+              <span>2-step: {u.totp_enabled ? 'On' : 'Off'}</span>
+              <span className="tabular-nums">{u.last_login_at ? new Date(u.last_login_at + 'Z').toLocaleDateString() : 'Never signed in'}</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button className="btn-outline flex-1 py-2" onClick={() => { setValues({ full_name: u.full_name, role: u.role, is_active: u.is_active, reset_password: '' }); setMode(u) }}>Edit</button>
+              {u.totp_enabled && u.id !== me?.id && <button className="btn-outline py-2 text-xs text-muted hover:text-red-600" onClick={async () => { await api(`/api/admin/users/${u.id}/reset-2fa`, { method: 'POST' }); toast('Two-step sign-in reset'); qc.invalidateQueries({ queryKey: ['admin', 'users'] }) }}><KeyRound className="h-3.5 w-3.5" /> Reset 2-step</button>}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="card hidden overflow-x-auto md:block">
         <table className="w-full text-left text-sm">
           <thead className="bg-paper text-xs uppercase tracking-wider text-muted"><tr><th className="px-4 py-3">User</th><th className="px-4 py-3">Role</th><th className="px-4 py-3">2-step</th><th className="px-4 py-3">Last sign-in</th><th className="px-4 py-3">Status</th><th /></tr></thead>
           <tbody className="divide-y divide-line">
@@ -50,7 +73,7 @@ export default function UsersPage() {
                 <td className="px-4 py-3"><div className="font-semibold text-navy-900">{u.full_name || u.username}</div><div className="text-xs text-muted">@{u.username}</div></td>
                 <td className="px-4 py-3 capitalize">{u.role === 'superadmin' ? 'Super admin' : 'Editor'}</td>
                 <td className="px-4 py-3">{u.totp_enabled ? <span className="chip bg-emerald-50 text-emerald-700"><ShieldCheck className="mr-1 h-3.5 w-3.5" />On</span> : <span className="chip bg-paper text-muted">Off</span>}</td>
-                <td className="px-4 py-3 text-xs text-muted">{u.last_login_at ? new Date(u.last_login_at + 'Z').toLocaleString() : 'Never'}</td>
+                <td className="px-4 py-3 text-xs text-muted tabular-nums">{u.last_login_at ? new Date(u.last_login_at + 'Z').toLocaleString() : 'Never'}</td>
                 <td className="px-4 py-3">{u.is_active ? <span className="chip bg-emerald-50 text-emerald-700">Active</span> : <span className="chip bg-red-50 text-red-700">Disabled</span>}</td>
                 <td className="px-4 py-3 text-right">
                   <button className="btn-outline py-1.5" onClick={() => { setValues({ full_name: u.full_name, role: u.role, is_active: u.is_active, reset_password: '' }); setMode(u) }}>Edit</button>
