@@ -2,6 +2,29 @@ import { hashPassword, passwordProblems, utcnowStr } from './security.ts'
 import { store, uniqueSlug } from './store.ts'
 
 const M = '/media/seed/'
+const C = '/assets/aistudio/'
+
+const PHOTO = {
+  heroSunset: C + 'WhatsApp_Image_2026-11-26_at_15.42.32__1__31d9bd69.jpeg',
+  sportsGroundCollege: C + 'WhatsApp_Image_2026-11-26_at_15.42.31__2__8ebafb11.jpeg',
+  mainHall: C + 'WhatsApp_Image_2026-11-26_at_15.42.29_efbd1587.jpeg',
+  visionMissionTree: C + 'WhatsApp_Image_2026-11-26_at_15.42.31__1__60d025be.jpeg',
+  facultyOfTech: C + 'IMG_9812_e2f50b42.jpg',
+  corridorPalm: C + 'WhatsApp_Image_2026-11-26_at_15.42.31_4221fa26.jpeg',
+  corridorWhite: C + 'WhatsApp_Image_2026-11-26_at_15.42.32_62a87b41.jpeg',
+  corridorGajaba: C + 'WhatsApp_Image_2026-11-26_at_15.42.33_58e7d245.jpeg',
+  muralSriLanka: C + 'IMG_9817_eabecbc6.jpg',
+  muralWorldMap: C + 'IMG_9819_d3adefe2.jpg',
+  groundsStudents: C + 'IMG_9787_024aee79.jpg',
+  groundsSky: C + 'IMG_9788_26e9c8e4.jpg',
+  groundsTreeCourtyard: C + 'WhatsApp_Image_2026-11-26_at_15.42.30_76424f68.jpeg',
+  groundsUnderTree: C + 'IMG_9789_dee08c14.jpg',
+  groundsGrassBlock: C + 'IMG_9796_2883375e.jpg',
+  treeSunburst: C + 'IMG_9794_2f8faab3.jpg',
+  treeSunbeamsBench: C + 'IMG_9792_2e7d1393.jpg',
+  fieldLowAngle: C + 'IMG_9806_74bf653a.jpg',
+  fieldGrassTree: C + 'IMG_9801_0d204b66.jpg',
+}
 
 export function seedDatabase(): void {
   if (store.houses.length > 0) return
@@ -24,7 +47,7 @@ export function seedDatabase(): void {
     youtube: '',
     map_embed_query: 'Saranath College Kuliyapitiya',
     office_hours: 'Mon to Fri, 7.30 am to 2.30 pm',
-    hero_image: M + 'hero.webp',
+    hero_image: PHOTO.heroSunset,
     logo: M + 'crest-transparent.webp',
     stats: [
       { value: '1882', suffix: '', label: 'Founded' },
@@ -122,12 +145,12 @@ export function seedDatabase(): void {
   })
 
   const levels: [string, string, string, string][] = [
-    ['Grades 6 to 8', 'Junior Secondary', 'Build a strong foundation in languages, mathematics, science and the humanities while discovering new interests.', 'learning-together.webp'],
-    ['Grades 9 to 11', 'Ordinary Level (O/L)', 'Develop knowledge across the school curriculum and prepare for the G.C.E. Ordinary Level examination.', 'student-community.webp'],
-    ['Grades 12 to 13', 'Advanced Level (A/L)', 'Choose a subject stream, deepen your studies and prepare for further education and future careers.', 'science-activity.webp'],
+    ['Grades 6 to 8', 'Junior Secondary', 'Build a strong foundation in languages, mathematics, science and the humanities while discovering new interests.', PHOTO.corridorGajaba],
+    ['Grades 9 to 11', 'Ordinary Level (O/L)', 'Develop knowledge across the school curriculum and prepare for the G.C.E. Ordinary Level examination.', PHOTO.corridorWhite],
+    ['Grades 12 to 13', 'Advanced Level (A/L)', 'Choose a subject stream, deepen your studies and prepare for further education and future careers.', PHOTO.facultyOfTech],
   ]
-  levels.forEach(([grade_range, name, description, img], position) => {
-    store.levels.push({ id: store.nextId('levels'), grade_range, name, description, image: M + img, position, created_at: ts, updated_at: ts })
+  levels.forEach(([grade_range, name, description, image], position) => {
+    store.levels.push({ id: store.nextId('levels'), grade_range, name, description, image, position, created_at: ts, updated_at: ts })
   })
 
   const streams: [string, string, string, string, string, string[], string][] = [
@@ -138,7 +161,7 @@ export function seedDatabase(): void {
       'Engineering, physical sciences and technology.',
       'A rigorous stream for students interested in mathematics, physics and understanding how the world works.',
       ['Combined Mathematics', 'Physics', 'Chemistry', 'ICT'],
-      'science-activity.webp',
+      PHOTO.corridorPalm,
     ],
     [
       'Biological Science',
@@ -147,7 +170,7 @@ export function seedDatabase(): void {
       'Health sciences, agriculture and biological research.',
       'Explore living systems and the natural world through scientific study and practical investigation.',
       ['Biology', 'Chemistry', 'Physics', 'Agricultural Science'],
-      'community-service.webp',
+      PHOTO.visionMissionTree,
     ],
     [
       'Commerce',
@@ -156,7 +179,7 @@ export function seedDatabase(): void {
       'Business, finance, management and economics.',
       'Build an understanding of business and the economy while developing analytical and financial skills.',
       ['Accounting', 'Business Studies', 'Economics'],
-      'student-community.webp',
+      PHOTO.mainHall,
     ],
     [
       'Arts',
@@ -165,19 +188,19 @@ export function seedDatabase(): void {
       'Education, law, media and social sciences.',
       'Study people, societies, languages and ideas through a choice of humanities and social science subjects.',
       ['Sinhala', 'English', 'Political Science', 'Geography', 'Buddhist Civilization', 'Mass Media'],
-      'learning-together.webp',
+      PHOTO.muralSriLanka,
     ],
     [
       'Technology',
       'Applied learning stream',
       'Applied science, engineering and technology.',
       'Engineering technology, IT and applied sciences.',
-      'Connect scientific understanding with practical technology and real-world problem solving.',
+      'Connect scientific understanding with practical technology and real-world problem solving inside our dedicated three-storey Faculty of Technology.',
       ['Engineering Technology / Bio Systems Technology', 'Science for Technology', 'ICT'],
-      'science-activity.webp',
+      PHOTO.facultyOfTech,
     ],
   ]
-  streams.forEach(([name, category, focus, careers, description, subjects, img], position) => {
+  streams.forEach(([name, category, focus, careers, description, subjects, image], position) => {
     store.streams.push({
       id: store.nextId('streams'),
       name,
@@ -186,7 +209,7 @@ export function seedDatabase(): void {
       careers,
       description,
       subjects,
-      image: M + img,
+      image,
       position,
       created_at: ts,
       updated_at: ts,
@@ -194,21 +217,21 @@ export function seedDatabase(): void {
   })
 
   const clubs: [string, 'club' | 'sport', string, string, string][] = [
-    ['Media Unit', 'club', 'Media', 'Tell the stories behind school life through photography, video, writing and announcements.', 'school-celebration.webp'],
-    ['School Prefect Board', 'club', 'Leadership', 'Support students and teachers while helping school activities run with care and responsibility.', 'students-together.webp'],
-    ['Drama Society', 'club', 'Arts', 'Explore theatre, performance and storytelling through creative projects and productions.', 'music-performance.webp'],
-    ['Music Society', 'club', 'Arts', 'Make music, practise together and bring creative energy to school celebrations.', 'school-celebration.webp'],
-    ['Dance Society', 'club', 'Arts', 'Celebrate movement, creative expression and cultural traditions through dance.', 'music-performance.webp'],
-    ['Science & ICT Society', 'club', 'Learning', 'Ask questions, experiment with ideas and develop practical technology skills.', 'science-activity.webp'],
-    ['Literary & Debate Society', 'club', 'Learning', 'Share ideas and build confidence in reading, writing and public speaking.', 'learning-together.webp'],
-    ['Environment & Community Service', 'club', 'Service', 'Contribute to projects that care for the school environment and the wider community.', 'community-service.webp'],
-    ['Art & Craft Society', 'club', 'Arts', 'Experiment with visual art, design and hands-on creative projects.', 'student-sports.webp'],
-    ['Athletics', 'sport', 'Track & Field', 'Sprints, distance, jumps and throws, with training for zonal, provincial and national meets.', 'track-and-field.webp'],
-    ['Cricket', 'sport', 'Team sport', 'Under-13 to Under-19 squads competing in inter-school tournaments.', 'student-sports.webp'],
-    ['Volleyball', 'sport', 'Team sport', 'Boys and girls teams building teamwork, fitness and competitive spirit.', 'student-sports.webp'],
-    ['Badminton', 'sport', 'Racket sport', 'Indoor training and provincial-level competition.', 'student-sports.webp'],
+    ['Media Unit', 'club', 'Media', 'Tell the stories behind school life through photography, video, writing and announcements.', PHOTO.muralWorldMap],
+    ['School Prefect Board', 'club', 'Leadership', 'Support students and teachers while helping school activities run with care and responsibility.', PHOTO.heroSunset],
+    ['Drama Society', 'club', 'Arts', 'Explore theatre, performance and storytelling through creative projects and productions.', M + 'music-performance.webp'],
+    ['Music Society', 'club', 'Arts', 'Make music, practise together and bring creative energy to school celebrations.', PHOTO.mainHall],
+    ['Dance Society', 'club', 'Arts', 'Celebrate movement, creative expression and cultural traditions through dance.', M + 'music-performance.webp'],
+    ['Science & ICT Society', 'club', 'Learning', 'Ask questions, experiment with ideas and develop practical technology skills.', PHOTO.facultyOfTech],
+    ['Literary & Debate Society', 'club', 'Learning', 'Share ideas and build confidence in reading, writing and public speaking.', PHOTO.corridorWhite],
+    ['Environment & Community Service', 'club', 'Service', 'Contribute to projects that care for the school environment and the wider community.', PHOTO.groundsTreeCourtyard],
+    ['Art & Craft Society', 'club', 'Arts', 'Experiment with visual art, design and hands-on creative projects.', PHOTO.muralSriLanka],
+    ['Athletics', 'sport', 'Track & Field', 'Sprints, distance, jumps and throws, with training for zonal, provincial and national meets.', PHOTO.sportsGroundCollege],
+    ['Cricket', 'sport', 'Team sport', 'Under-13 to Under-19 squads competing in inter-school tournaments.', PHOTO.groundsStudents],
+    ['Volleyball', 'sport', 'Team sport', 'Boys and girls teams building teamwork, fitness and competitive spirit.', M + 'student-sports.webp'],
+    ['Badminton', 'sport', 'Racket sport', 'Indoor training and provincial-level competition.', M + 'student-sports.webp'],
   ]
-  clubs.forEach(([name, kind, category, description, img], position) => {
+  clubs.forEach(([name, kind, category, description, image], position) => {
     store.clubs.push({
       id: store.nextId('clubs'),
       name,
@@ -217,7 +240,7 @@ export function seedDatabase(): void {
       description,
       details: '',
       teacher_in_charge: '',
-      image: M + img,
+      image,
       position,
       created_at: ts,
       updated_at: ts,
@@ -231,7 +254,7 @@ export function seedDatabase(): void {
       '2026-10-12',
       'Fifteen students achieved three A grades in the Physical Science stream.',
       'Saranath College celebrates the achievements of its G.C.E. Advanced Level batch.\n\nFifteen students achieved three A grades in the Physical Science stream, an outstanding result for the students and the school community.\n\nThe College congratulates all students who completed their examinations and wishes them success in their future studies.',
-      'school-celebration.webp',
+      PHOTO.sportsGroundCollege,
       true,
     ],
     [
@@ -240,7 +263,7 @@ export function seedDatabase(): void {
       '2026-09-02',
       'A quick guide to the secondary levels and subject streams at Saranath.',
       'Saranath College students progress through Junior Secondary, G.C.E. Ordinary Level and Advanced Level programmes.\n\nAt Advanced Level, the pathways include Physical Science, Biological Science, Commerce, Arts and Technology.\n\nSubject combinations and availability can vary. Please contact the school for current A/L options.',
-      'learning-together.webp',
+      PHOTO.mainHall,
       false,
     ],
     [
@@ -249,11 +272,11 @@ export function seedDatabase(): void {
       '2026-08-20',
       'Explore student groups across media, the arts, learning, leadership and community service.',
       'Saranath College offers a range of clubs and societies for students to explore interests and develop skills.\n\nThe groups include media, drama, music, dance, science and ICT, literature and debate, art, and community service.',
-      'students-together.webp',
+      PHOTO.groundsStudents,
       false,
     ],
   ]
-  news.forEach(([title, category, date, excerpt, body, img, featured]) => {
+  news.forEach(([title, category, date, excerpt, body, image, featured]) => {
     const id = store.nextId('news')
     store.news.push({
       id,
@@ -263,7 +286,7 @@ export function seedDatabase(): void {
       date,
       excerpt,
       body,
-      image: M + img,
+      image,
       image_alt: title,
       featured,
       published: true,
@@ -281,7 +304,7 @@ export function seedDatabase(): void {
       'College Main Grounds, Meegahakotuwa',
       'Thisara, Mayura, Lihini and Paravi houses compete across track and field, march-past and relay finals.',
       '',
-      'track-and-field.webp',
+      PHOTO.sportsGroundCollege,
     ],
     [
       "Founders' Day & Prize Giving",
@@ -291,7 +314,7 @@ export function seedDatabase(): void {
       'Main Hall',
       'Commemorating Headmaster Anthony de Silva and celebrating scholars, sports medallists and O/L and A/L achievers.',
       '',
-      'school-celebration.webp',
+      PHOTO.mainHall,
     ],
     [
       'Science & Technology Exhibition',
@@ -301,7 +324,7 @@ export function seedDatabase(): void {
       'Science & Technology Block',
       'Students from the Science and Technology streams showcase projects and prototypes.',
       '',
-      'science-activity.webp',
+      PHOTO.groundsGrassBlock,
     ],
     [
       'Colours Night',
@@ -311,7 +334,7 @@ export function seedDatabase(): void {
       'Main Hall',
       'More than 200 sportsmen from 15 disciplines were recognised for their achievements.',
       'Students representing 15 disciplines were recognised for achievements at zonal, provincial and national levels.',
-      'track-and-field.webp',
+      PHOTO.groundsStudents,
     ],
     [
       'Clubs & Societies Showcase',
@@ -321,7 +344,7 @@ export function seedDatabase(): void {
       'School Grounds',
       'Students shared projects and invited the school community to explore student groups.',
       '',
-      'student-community.webp',
+      PHOTO.groundsTreeCourtyard,
     ],
     [
       'Cultural Celebration',
@@ -331,7 +354,7 @@ export function seedDatabase(): void {
       'Main Hall',
       'A programme of music, dance and tradition gave students a moment to perform and celebrate together.',
       '',
-      'music-performance.webp',
+      PHOTO.groundsUnderTree,
     ],
     [
       'Prefect Investiture',
@@ -341,10 +364,10 @@ export function seedDatabase(): void {
       'Main Hall',
       'The school recognised a new group of student leaders and their commitment to service and responsibility.',
       '',
-      'students-together.webp',
+      PHOTO.heroSunset,
     ],
   ]
-  events.forEach(([title, category, date, time, venue, excerpt, outcome, img]) => {
+  events.forEach(([title, category, date, time, venue, excerpt, outcome, image]) => {
     const id = store.nextId('events')
     store.events.push({
       id,
@@ -357,7 +380,7 @@ export function seedDatabase(): void {
       excerpt,
       body: excerpt,
       outcome,
-      image: M + img,
+      image,
       image_alt: title,
       published: true,
       created_at: ts,
@@ -366,21 +389,30 @@ export function seedDatabase(): void {
   })
 
   const gallery: [string, string, 'sport' | 'learning' | 'arts' | 'community' | 'events', 'normal' | 'wide' | 'tall'][] = [
-    ['track-and-field.webp', 'Ready, set, go', 'sport', 'tall'],
-    ['learning-together.webp', 'A classroom in session', 'learning', 'normal'],
-    ['music-performance.webp', 'Lights up', 'arts', 'normal'],
-    ['student-community.webp', 'Sharing ideas', 'community', 'wide'],
-    ['science-activity.webp', 'Curiosity in action', 'learning', 'normal'],
-    ['student-sports.webp', 'Teamwork outdoors', 'sport', 'normal'],
-    ['school-grounds.webp', 'Our school grounds', 'community', 'wide'],
-    ['religious.webp', 'Religious observance', 'community', 'wide'],
-    ['hero.webp', 'The main building', 'community', 'normal'],
-    ['school-celebration.webp', 'Celebrating together', 'events', 'normal'],
+    [PHOTO.heroSunset, 'Golden hour along the main campus walkway', 'community', 'wide'],
+    [PHOTO.visionMissionTree, 'Our Vision and Mission carved beneath the mango tree', 'learning', 'tall'],
+    [PHOTO.sportsGroundCollege, 'College grounds and the yellow Sarana block', 'sport', 'wide'],
+    [PHOTO.facultyOfTech, 'Three-storey Faculty of Technology building', 'learning', 'tall'],
+    [PHOTO.mainHall, 'The Main Hall and sandy ceremonial courtyard', 'events', 'wide'],
+    [PHOTO.groundsStudents, 'Students crossing the cricket outfield at dusk', 'sport', 'normal'],
+    [PHOTO.corridorGajaba, '12 Gajaba Hall and sunlit classroom corridor', 'learning', 'tall'],
+    [PHOTO.muralSriLanka, 'Sri Lanka provinces and kingdoms educational mural', 'arts', 'tall'],
+    [PHOTO.groundsTreeCourtyard, 'Gathering space beneath the iconic shade tree', 'community', 'wide'],
+    [PHOTO.corridorPalm, 'Walkway between the upper academic blocks', 'learning', 'tall'],
+    [PHOTO.muralWorldMap, 'World continents and oceans student mural', 'arts', 'tall'],
+    [PHOTO.groundsSky, 'Dramatic Kuliyapitiya skies over the playing field', 'sport', 'wide'],
+    [PHOTO.corridorWhite, 'Open wooden windows along the senior classrooms', 'learning', 'tall'],
+    [PHOTO.treeSunburst, 'Morning light through the campus canopy', 'community', 'tall'],
+    [PHOTO.groundsUnderTree, 'Quiet stone benches overlooking the grounds', 'community', 'normal'],
+    [PHOTO.groundsGrassBlock, 'Across the turf to the two-storey classroom wing', 'sport', 'wide'],
+    [PHOTO.treeSunbeamsBench, 'Sunbeams beside the playing field', 'community', 'tall'],
+    [PHOTO.fieldGrassTree, 'Green expanse of the main college field', 'sport', 'normal'],
+    [PHOTO.fieldLowAngle, 'Along the stone terrace bordering the grounds', 'events', 'normal'],
   ]
-  gallery.forEach(([img, caption, category, size], position) => {
+  gallery.forEach(([image, caption, category, size], position) => {
     store.gallery.push({
       id: store.nextId('gallery'),
-      image: M + img,
+      image,
       caption,
       alt: caption,
       category,

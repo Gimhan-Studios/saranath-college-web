@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import PageHero from '../components/PageHero'
 import { EventRow, Skeletons } from '../components/Cards'
+import { CAMPUS_PHOTOS } from '../lib/campusMedia'
 import { splitEvents, useEvents } from '../lib/hooks'
 
 export default function Events() {
@@ -15,7 +16,7 @@ export default function Events() {
 
   return (
     <>
-      <PageHero eyebrow="College calendar" title="Upcoming & Past Events" lead="From sports meets to prize givings, everything happening at Saranath in one place." image="/media/seed/track-and-field.webp" />
+      <PageHero eyebrow="College calendar" title="Upcoming & Past Events" lead="From sports meets to prize givings, everything happening at Saranath in one place." image={CAMPUS_PHOTOS.groundsStudents} />
       <section className="bg-paper py-12 sm:py-16">
         <div className="wrap max-w-5xl">
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

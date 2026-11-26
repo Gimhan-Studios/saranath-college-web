@@ -8,8 +8,11 @@ import CountUp from '../components/CountUp'
 import Timeline from '../components/Timeline'
 import HouseStandings from '../components/HouseStandings'
 import EventsTV from '../components/EventsTV'
+import VisionMissionSection from '../components/VisionMissionSection'
+import CampusShowcase from '../components/CampusShowcase'
 import { NewsCard, Skeletons } from '../components/Cards'
 import Img from '../components/Img'
+import { CAMPUS_PHOTOS } from '../lib/campusMedia'
 import { splitEvents, useAcademics, useClubs, useEvents, useGallery, useHouses, useNews, useSettings, useTimeline } from '../lib/hooks'
 import { paragraphs } from '../lib/format'
 
@@ -45,12 +48,12 @@ export default function Home() {
       <section ref={heroRef} className="relative flex min-h-[580px] h-[100svh] max-h-[960px] flex-col justify-center overflow-hidden bg-navy-950">
         <motion.div style={{ y: bgY }} className="absolute inset-0">
           <motion.img
-            src={school?.hero_image || '/media/seed/hero.webp'} alt=""
-            className="h-full w-full object-cover"
-            initial={{ scale: 1.15 }} animate={{ scale: 1.04 }} transition={{ duration: 10, ease: 'easeOut' }}
+            src={school?.hero_image || CAMPUS_PHOTOS.heroSunset} alt="Saranath College campus walkway at sunset"
+            className="h-full w-full object-cover object-[center_36%]"
+            initial={{ scale: 1.15 }} animate={{ scale: 1.06 }} transition={{ duration: 10, ease: 'easeOut' }}
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-950/75 via-navy-950/50 to-navy-950/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy-950/70 via-navy-950/35 to-navy-950/92" />
         <div className="pointer-events-none absolute -left-1/4 top-0 h-full w-1/2 animate-beam bg-gradient-to-r from-transparent via-gold-300/15 to-transparent blur-3xl" />
         <img src={school?.logo || '/media/seed/crest-transparent.webp'} alt="" className="pointer-events-none absolute -right-24 bottom-0 hidden h-[80%] w-auto opacity-[0.06] lg:block" />
 
@@ -90,8 +93,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* VISION & MISSION */}
+      <VisionMissionSection bg="bg-paper" />
+
       {/* HISTORY */}
-      <section className="bg-paper py-16 sm:py-24 lg:py-32">
+      <section className="bg-white py-16 sm:py-24 lg:py-32">
         <div className="wrap">
           <SectionHeading center eyebrow="Our History" title="A Journey Through Time" lead="The milestones that shaped our College, from a humble beginning to the institution we are proud of today." />
           {timeline ? <Timeline items={timeline} /> : <div className="mx-auto grid max-w-3xl gap-4"><Skeletons n={4} className="h-24" /></div>}
@@ -100,7 +106,7 @@ export default function Home() {
 
       {/* PRINCIPAL */}
       {principal?.message && (
-        <section className="relative overflow-hidden bg-white py-16 sm:py-24 lg:py-32">
+        <section className="relative overflow-hidden bg-paper py-16 sm:py-24 lg:py-32">
           <div className="wrap grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
             <Reveal className="relative mx-auto w-full max-w-[300px] sm:max-w-sm">
               <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-navy-900 shadow-[0_24px_48px_-24px_rgba(6,23,61,.4)]">
@@ -129,7 +135,7 @@ export default function Home() {
       )}
 
       {/* ACADEMICS */}
-      <section className="bg-paper py-16 sm:py-24 lg:py-32">
+      <section className="bg-white py-16 sm:py-24 lg:py-32">
         <div className="wrap">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <SectionHeading eyebrow="Education & Academic Pathways" title="Learning for the future" lead="A learning journey from junior secondary through G.C.E. Ordinary Level and Advanced Level." />
@@ -160,6 +166,9 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      {/* CAMPUS SHOWCASE */}
+      <CampusShowcase bg="bg-paper" />
 
       {/* HOUSES */}
       <section className="relative overflow-hidden bg-navy-900 py-16 sm:py-24 lg:py-32">
@@ -210,10 +219,16 @@ export default function Home() {
           </div>
         </div>
         <div className="wrap mt-10 grid grid-flow-dense auto-rows-[150px] grid-cols-2 gap-3 sm:mt-14 sm:auto-rows-[200px] md:grid-cols-4">
-          {(gallery ?? []).slice(0, 6).map((g, i) => (
-            <Reveal key={g.id} delay={i * 0.05} className={`group relative overflow-hidden rounded-2xl ${i === 0 ? 'row-span-2' : ''} ${i === 3 ? 'md:col-span-2' : ''}`}>
+          {(gallery ?? []).slice(0, 7).map((g, i) => (
+            <Reveal
+              key={g.id}
+              delay={i * 0.05}
+              className={`group relative overflow-hidden rounded-2xl ${
+                g.size === 'tall' ? 'row-span-2' : ''
+              } ${g.size === 'wide' ? 'col-span-2' : ''}`}
+            >
               <Img src={g.image} alt={g.alt} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 flex items-end bg-gradient-to-t from-navy-950/75 via-transparent p-3.5 opacity-100 transition sm:p-4 sm:opacity-0 sm:group-hover:opacity-100">
+              <div className="absolute inset-0 flex items-end bg-gradient-to-t from-navy-950/80 via-transparent p-3.5 opacity-100 transition sm:p-4 sm:opacity-0 sm:group-hover:opacity-100">
                 <span className="text-xs font-semibold text-white sm:text-sm">{g.caption}</span>
               </div>
             </Reveal>

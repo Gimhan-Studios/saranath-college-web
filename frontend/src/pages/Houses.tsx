@@ -2,6 +2,7 @@ import PageHero from '../components/PageHero'
 import { Reveal, SectionHeading } from '../components/Reveal'
 import HouseStandings from '../components/HouseStandings'
 import { Skeletons } from '../components/Cards'
+import { CAMPUS_PHOTOS } from '../lib/campusMedia'
 import { useHouses, useSettings } from '../lib/hooks'
 
 export default function Houses() {
@@ -9,7 +10,7 @@ export default function Houses() {
   const { data: site } = useSettings()
   return (
     <>
-      <PageHero eyebrow={site?.school.sports_meet_title || 'Inter-House Sports Meet'} title="Our Houses" lead="Four houses bring every Saranathian together in friendly competition, on the track, the field and the stage." image="/media/seed/track-and-field.webp" crumbs={[{ to: '/student-life', label: 'Student Life' }]} />
+      <PageHero eyebrow={site?.school.sports_meet_title || 'Inter-House Sports Meet'} title="Our Houses" lead="Four houses bring every Saranathian together in friendly competition, on the track, the field and the stage." image={CAMPUS_PHOTOS.sportsGroundCollege} crumbs={[{ to: '/student-life', label: 'Student Life' }]} />
       <section className="bg-navy-900 py-14 sm:py-20">
         <div className="wrap">
           <SectionHeading light eyebrow="Live standings" title="House points" lead={site?.school.sports_meet_note} />

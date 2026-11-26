@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import PageHero from '../components/PageHero'
 import { Reveal } from '../components/Reveal'
 import { NewsCard, Skeletons } from '../components/Cards'
+import { CAMPUS_PHOTOS } from '../lib/campusMedia'
 import { useNews } from '../lib/hooks'
 import { Search, X } from 'lucide-react'
 
@@ -15,7 +16,7 @@ export default function NewsList() {
 
   return (
     <>
-      <PageHero eyebrow="Latest School News" title="News" lead="Announcements, achievements and stories from across the Saranath community." image="/media/seed/school-celebration.webp" />
+      <PageHero eyebrow="Latest School News" title="News" lead="Announcements, achievements and stories from across the Saranath community." image={CAMPUS_PHOTOS.groundsSky} />
       <section className="bg-paper py-12 sm:py-16">
         <div className="wrap">
           <div className="mb-8 flex flex-col gap-4 md:mb-10 md:flex-row md:items-center md:justify-between">

@@ -5,6 +5,7 @@ import PageHero from '../components/PageHero'
 import { SectionHeading } from '../components/Reveal'
 import Img from '../components/Img'
 import { Skeletons } from '../components/Cards'
+import { CAMPUS_PHOTOS } from '../lib/campusMedia'
 import { useClubs } from '../lib/hooks'
 import type { Club } from '../lib/types'
 
@@ -20,7 +21,7 @@ export default function StudentLife() {
 
   return (
     <>
-      <PageHero eyebrow="Clubs, Societies & Sports" title="Student Life" lead="From the first practice to the final whistle, from the stage to the science lab: there is a place for every Saranathian." image="/media/seed/students-together.webp" />
+      <PageHero eyebrow="Clubs, Societies & Sports" title="Student Life" lead="From the first practice to the final whistle, from the stage to the science lab: there is a place for every Saranathian." image={CAMPUS_PHOTOS.muralWorldMap} />
       <section className="bg-paper py-14 sm:py-20">
         <div className="wrap">
           <SectionHeading eyebrow="Find your community" title="Grow through shared interests" />

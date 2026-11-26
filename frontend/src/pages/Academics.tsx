@@ -5,6 +5,7 @@ import PageHero from '../components/PageHero'
 import { Reveal, SectionHeading } from '../components/Reveal'
 import Img from '../components/Img'
 import { Skeletons } from '../components/Cards'
+import { CAMPUS_PHOTOS } from '../lib/campusMedia'
 import { useAcademics } from '../lib/hooks'
 
 export default function Academics() {
@@ -15,7 +16,7 @@ export default function Academics() {
 
   return (
     <>
-      <PageHero eyebrow="Education & Academic Pathways" title="Academics" lead="A learning journey from junior secondary through the G.C.E. Ordinary Level and Advanced Level programmes." image="/media/seed/learning-together.webp" />
+      <PageHero eyebrow="Education & Academic Pathways" title="Academics" lead="A learning journey from junior secondary through the G.C.E. Ordinary Level and Advanced Level programmes." image={CAMPUS_PHOTOS.corridorPalm} />
 
       <section className="bg-paper py-16 sm:py-24">
         <div className="wrap">
@@ -28,7 +29,7 @@ export default function Academics() {
                   <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-navy-900 font-serif text-xl font-bold text-gold-400 ring-4 ring-paper tabular-nums sm:h-14 sm:w-14 sm:text-2xl sm:ring-8">{i + 1}</div>
                   <div><div className="text-xs font-bold uppercase tracking-[0.18em] text-gold-600">{l.grade_range}</div><h3 className="font-serif text-xl font-semibold text-navy-900 sm:text-2xl">{l.name}</h3></div>
                 </div>
-                <Img src={l.image} alt={l.name} className="aspect-[16/9] w-full object-cover" />
+                <Img src={l.image} alt={l.name} className="aspect-[4/3] w-full object-cover object-center" />
                 <p className="p-5 text-sm leading-7 text-muted sm:p-6">{l.description}</p>
               </Reveal>
             )) : <Skeletons n={3} className="h-96" />}
@@ -60,15 +61,29 @@ export default function Academics() {
               </div>
               <AnimatePresence mode="wait">
                 <motion.div key={s.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.28 }} className="card overflow-hidden">
-                  <div className="relative h-48 sm:h-72">
-                    <Img src={s.image} alt={s.name} className="h-full w-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/30 to-transparent" />
-                    <h3 className="absolute inset-x-5 bottom-5 font-serif text-3xl font-semibold text-white sm:inset-x-6 sm:bottom-6 sm:text-5xl">{s.name}</h3>
+                  <div className="grid bg-navy-950 text-white md:grid-cols-[1.05fr_0.95fr]">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-navy-950 md:aspect-auto md:min-h-[340px]">
+                      {s.image === CAMPUS_PHOTOS.mainHall ? (
+                        <Img src={s.image} alt={s.name} className="h-full w-full object-cover object-center" />
+                      ) : (
+                        <>
+                          <img src={s.image} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-35 blur-2xl" />
+                          <div className="absolute inset-0 bg-navy-950/30" />
+                          <Img src={s.image} alt={s.name} className="relative z-10 mx-auto h-full w-auto object-contain" />
+                        </>
+                      )}
+                      <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-navy-950/40" />
+                    </div>
+                    <div className="flex flex-col justify-center p-6 sm:p-8">
+                      <div className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-400">{s.category}</div>
+                      <h3 className="mt-2 font-serif text-3xl font-semibold leading-tight text-white sm:text-4xl">{s.name}</h3>
+                      <p className="mt-3 text-sm leading-7 text-white/80 sm:text-base">{s.description}</p>
+                    </div>
                   </div>
                   <div className="grid gap-6 p-5 sm:gap-8 sm:p-8 md:grid-cols-2">
                     <div>
-                      <p className="leading-7 text-muted sm:leading-8">{s.description}</p>
-                      <div className="mt-5 space-y-4 text-sm sm:mt-6">
+                      <div className="eyebrow">Pathway Overview</div>
+                      <div className="mt-4 space-y-4 text-sm">
                         {s.focus && <div className="flex gap-3"><Target className="h-5 w-5 shrink-0 text-gold-600" /><div><b className="text-navy-900">Focus.</b> {s.focus}</div></div>}
                         {s.careers && <div className="flex gap-3"><Briefcase className="h-5 w-5 shrink-0 text-gold-600" /><div><b className="text-navy-900">Careers.</b> {s.careers}</div></div>}
                       </div>

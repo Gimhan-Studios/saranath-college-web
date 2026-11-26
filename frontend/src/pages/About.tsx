@@ -3,8 +3,10 @@ import { useLocation } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import { Reveal, SectionHeading } from '../components/Reveal'
 import Timeline from '../components/Timeline'
+import VisionMissionSection from '../components/VisionMissionSection'
 import Img from '../components/Img'
 import { Skeletons } from '../components/Cards'
+import { CAMPUS_PHOTOS } from '../lib/campusMedia'
 import { useSettings, useTimeline } from '../lib/hooks'
 import { paragraphs } from '../lib/format'
 
@@ -20,7 +22,9 @@ export default function About() {
 
   return (
     <>
-      <PageHero eyebrow={`Since ${s?.founded ?? 1882}`} title="About Saranath" lead={s?.intro_statement} image={s?.hero_image} />
+      <PageHero eyebrow={`Since ${s?.founded ?? 1882}`} title="About Saranath" lead={s?.intro_statement} image={CAMPUS_PHOTOS.mainHall} />
+
+      <VisionMissionSection showCta={false} bg="bg-white" />
 
       <section className="bg-paper py-16 sm:py-24">
         <div className="wrap">

@@ -17,6 +17,7 @@ export default function Img({ src, alt = '', className = '', ...rest }: ImgHTMLA
       alt={alt}
       loading="lazy"
       decoding="async"
+      referrerPolicy="no-referrer"
       onLoad={() => setLoaded(true)}
       onError={() => setFailed(true)}
       className={`${className} transition-[opacity,filter] duration-700 ${loaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm'}`}

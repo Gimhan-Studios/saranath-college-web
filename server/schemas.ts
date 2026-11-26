@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
-const IMAGE_RE = /^(\/uploads\/[A-Za-z0-9_-]+\.(webp|jpg|jpeg|png)|\/media\/[A-Za-z0-9_\-/]+\.(webp|jpg|jpeg|png|svg))?$/
+const IMAGE_RE =
+  /^(\/uploads\/[A-Za-z0-9_-]+\.(webp|jpg|jpeg|png)|\/media\/[A-Za-z0-9_\-/]+\.(webp|jpg|jpeg|png|svg)|\/assets\/aistudio\/[A-Za-z0-9_.-]+\.(webp|jpg|jpeg|png))?$/
 const HEX_COLOR_RE = /^#[0-9a-fA-F]{6}$/
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 const CONTROL_RE = /[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g // eslint-disable-line no-control-regex
@@ -25,7 +26,7 @@ const imagePath = z
   .string()
   .trim()
   .max(300)
-  .refine((v) => IMAGE_RE.test(v), { message: 'Image must be uploaded through the admin panel' })
+  .refine((v) => !v.includes('..') && IMAGE_RE.test(v), { message: 'Image must be uploaded through the admin panel' })
 
 const hexColor = z
   .string()

@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import PageHero from '../components/PageHero'
 import Img from '../components/Img'
 import { Skeletons } from '../components/Cards'
+import { CAMPUS_PHOTOS } from '../lib/campusMedia'
 import { useGallery } from '../lib/hooks'
 
 const FILTERS = [['all', 'All moments'], ['sport', 'Sport'], ['arts', 'Arts & culture'], ['learning', 'Learning'], ['community', 'Community'], ['events', 'Events']]
@@ -32,13 +33,20 @@ export default function Gallery() {
 
   return (
     <>
-      <PageHero eyebrow="A few moments" title="Gallery" lead="Moments from sports, learning, creative activities and community life." image="/media/seed/school-grounds.webp" crumbs={[{ to: '/student-life', label: 'Student Life' }]} />
+      <PageHero eyebrow="A few moments" title="Gallery" lead="Moments from campus landmarks, sports grounds, classrooms and community life." image={CAMPUS_PHOTOS.groundsTreeCourtyard} crumbs={[{ to: '/student-life', label: 'Student Life' }]} />
       <section className="bg-paper py-12 sm:py-16">
         <div className="wrap">
-          <div className="-mx-4 mb-8 flex flex-nowrap gap-2 overflow-x-auto px-4 pb-1 no-scrollbar sm:mx-0 sm:flex-wrap sm:px-0">
-            {FILTERS.map(([v, l]) => (
-              <button key={v} onClick={() => setF(v)} className={`min-h-[40px] shrink-0 rounded-full px-4 py-2 text-xs font-semibold whitespace-nowrap transition ${f === v ? 'bg-navy-900 text-white' : 'bg-white text-muted ring-1 ring-line hover:text-navy-900'}`}>{l}</button>
-            ))}
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="-mx-4 flex flex-nowrap gap-2 overflow-x-auto px-4 pb-1 no-scrollbar sm:mx-0 sm:flex-wrap sm:px-0">
+              {FILTERS.map(([v, l]) => (
+                <button key={v} onClick={() => setF(v)} className={`min-h-[40px] shrink-0 rounded-full px-4 py-2 text-xs font-semibold whitespace-nowrap transition ${f === v ? 'bg-navy-900 text-white' : 'bg-white text-muted ring-1 ring-line hover:text-navy-900'}`}>{l}</button>
+              ))}
+            </div>
+            {data && (
+              <div className="text-xs font-medium text-muted tabular-nums">
+                Showing {list.length} {list.length === 1 ? 'photo' : 'photos'}
+              </div>
+            )}
           </div>
           <motion.div layout className="grid grid-flow-dense auto-rows-[160px] grid-cols-2 gap-3 sm:auto-rows-[220px] md:grid-cols-3 lg:grid-cols-4">
             {!data && <Skeletons n={8} className="h-full" />}
@@ -74,8 +82,15 @@ export default function Gallery() {
           >
             <button className="absolute right-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full bg-white/15 text-white hover:bg-white/25 sm:right-5 sm:top-5" onClick={() => setIdx(null)} aria-label="Close"><X /></button>
             <motion.figure key={cur.id} initial={{ scale: 0.94, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="max-w-5xl" onClick={(e) => e.stopPropagation()}>
-              <img src={cur.image} alt={cur.alt} className="max-h-[72vh] w-auto rounded-xl object-contain sm:max-h-[80vh]" />
-              <figcaption className="mt-3 text-center text-sm text-white/85 sm:text-base">{cur.caption}</figcaption>
+              <img src={cur.image} alt={cur.alt} className="mx-auto max-h-[70vh] w-auto rounded-xl object-contain sm:max-h-[78vh]" />
+              <figcaption className="mt-3 text-center">
+                <div className="text-sm text-white/90 sm:text-base">{cur.caption}</div>
+                <div className="mt-1 hidden items-center justify-center gap-2 text-xs uppercase tracking-[0.18em] text-white/55 tabular-nums sm:flex">
+                  <span>{cur.category}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{idx! + 1} / {list.length}</span>
+                </div>
+              </figcaption>
             </motion.figure>
             <button className="absolute left-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:grid" onClick={(e) => { e.stopPropagation(); prev() }} aria-label="Previous"><ChevronLeft /></button>
             <button className="absolute right-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:grid" onClick={(e) => { e.stopPropagation(); next() }} aria-label="Next"><ChevronRight /></button>

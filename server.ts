@@ -45,6 +45,7 @@ async function startServer() {
     res.status(404).json({ detail: 'Not found' })
   })
 
+  app.use('/assets', express.static(path.resolve(__dirname, 'public/assets')))
   app.use('/media', express.static(path.resolve(__dirname, 'media')))
   app.use('/uploads', express.static(UPLOAD_DIR))
 
